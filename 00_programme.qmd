@@ -1,72 +1,102 @@
 ---
-editor: 
-  markdown: 
+editor:
+  markdown:
     wrap: 72
 ---
 
 # Programme {.unnumbered}
 
-Voici une proposition de programme sur neuf jours, visant une
-progression pédagogique pour commencer par les fondements conceptuels et
-techniques et approfondir progressivement jusqu'à une maîtrise des bases
-de l'évaluation d'impact et une réflexion approfondie sur les
-applications possibles dans son environnement professionnel. La
-formation combine des cours théoriques et des exercices pratiques,
-incluant l'utilisation du logiciel R.
+Cette formation sur cinq jours vise à faire comprendre une chaîne d'analyse pour une d'évaluation d'impact spatialisée appliquée au cas des aires protégées à
+Madagascar. L'objectif n'est pas de couvrir l'ensemble du programme initial à volume constant, mais de concentrer la progression sur les
+étapes indispensables pour raisonner sur une question causale, suivre des scripts fournis, vérifier des sorties et interpréter des résultats.
 
--   Jour 1 (1er juillet) :
+La formation combine :
 
-    -   Matin : Introduction et cadrage théorique.
+- un cadrage conceptuel sur l'évaluation d'impact ;
+- un rappel ciblé de R pour suivre les scripts ;
+- une introduction aux données spatiales mobilisées ;
+- une démonstration guidée de la production d'indicateurs ;
+- l'étude de plusieurs stratégies empiriques : randomisation comme
+	benchmark, avant-après, appariement et double différence.
 
-    -   Après-midi : Initiation à R
 
--   Jour 2 (2 juillet) :
+## Progression générale
 
-    -   Matin : Principes de l’évaluation d’impact avec contrefactuel.
+| Jour | Matin | Après-midi |
+|---|---|---|
+| Jour 1 | Cadrage causal et cas d'étude | Environnement de travail, R utile et ressources pour poursuivre la pratique |
+| Jour 2 | Données spatiales vectorielles et raster | Opérations spatiales, logique mapme.biodiversity et objets pré-calculés |
+| Jour 3 | Randomisation comme benchmark et avant-après | Unités d'analyse et lecture du maillage |
+| Jour 4 | Appariement : théorie, score et comparabilité | Diagnostics d'équilibre et passage aux mailles |
+| Jour 5 | Double différence et lecture des résultats | Exercice intégrateur, synthèse et mise en forme des résultats |
 
-    -   Après-midi : Initiation à R (suite)
+## Détail par journée
 
--   Jour 3 (3 juillet) :
+### Jour 1
 
-    -   Matin : Revue des types de données.
+- Comprendre ce qu'est une question d'impact ;
+- introduire le contrefactuel et le biais de sélection ;
+- situer le cas d'étude et les données mobilisées ;
+- prendre en main l'environnement de travail ;
+- revoir le R strictement nécessaire pour suivre les chapitres
+	appliqués ;
+- repérer des ressources utiles pour poursuivre la pratique après la
+	formation.
 
-    -   Après-midi : Initiation à R (fin)
+### Jour 2
 
--   Jour 4 (4 juillet) :
+- distinguer données vectorielles et raster ;
+- lire et manipuler des objets spatiaux simples ;
+- comprendre à quoi servent intersections, buffers et calculs de
+	surfaces ;
+- suivre la logique de mapme.biodiversity ;
+- relier polygones, ressources, indicateurs et table d'analyse.
 
-    -   Matin : Données spatiales (travail avec les données vectorielles
-        et raster)
+### Jour 3
 
-    -   Après-midi : Données spatiales (opérations avec les packages sf
-        et mapme.biodiversity)
+- utiliser la randomisation comme point de comparaison conceptuel ;
+- lire un tableau d'équilibre et une différence moyenne ;
+- comprendre l'intuition et les limites de l'avant-après ;
+- discuter le choix de l'unité d'analyse ;
+- préparer le passage au matching sur mailles.
 
--   Jour 5 (7 juillet) :
+### Jour 4
 
-    -   Matin : Expérimentations aléatoires (théorie)
+- comprendre ce que signifie rendre traités et contrôles plus
+	comparables ;
+- lire une spécification de score de propension ;
+- examiner le support commun ;
+- interpréter des diagnostics avant et après appariement ;
+- préparer l'usage des mailles appariées pour l'analyse suivante.
 
-    -   Après-midi : Expérimentations aléatoires (application)
+### Jour 5
 
--   Jour 6 (8 juillet) :
+- comprendre l'intuition de la double différence ;
+- discuter l'hypothèse de tendances parallèles ;
+- lire une estimation dynamique autour du traitement ;
+- réaliser un exercice intégrateur court ;
+- formuler un résultat, l'hypothèse qui le soutient et sa limite
+	principale.
 
-    -   Matin : Comparaisons avant-après ; Clarifications sur la définition et l’agrégation des unités d’analyse
-        d’analyse
+## Résultats attendus
 
-    -   Après-midi : Méthodes d’appariement (théorie)
+À l'issue de ces cinq jours, les participants doivent pouvoir :
 
--   Jour 7 (9 juillet) :
+- comprendre la logique générale d'une évaluation d'impact appliquée à 	des objets spatialisés ;
+- suivre et adapter à la marge des scripts fournis ;
+- vérifier des objets, sorties et graphiques ;
+- interpréter avec prudence les résultats principaux ;
+- identifier les hypothèses méthodologiques à discuter.
 
-    -   Matin : Méthodes d’appariement (application)
+## Ce que ce format ne vise pas
 
-    -   Après-midi : Méthode des doubles différences (théorie)
+Ce format de formation ne permet pas :
 
--   Jour 8 (10 juillet) :
+- une autonomie complète en programmation R ;
+- l'exécution intégrale de tous les traitements lourds par les	participants ;
+- une couverture exhaustive des variantes de chaque méthode.
 
-    -   Matin : Méthodes des doubles différences (application)
-
-    -   Après-midi : Projet de groupe.
-
--   Jour 9 (11 juillet) :
-
-    -   Matin : Exercices pratiques dans R.
-
-    -   Après-midi : Restitution, évaluation et conclusion.
+Par rapport à des formations précédentes, on a allégé le contenu sur R. Ce recentrage 
+sur le strict nécessaire pour la formation, pourra être complété par les participant·e·s 
+par des mises en pratiques et la consultatoin de supports externes (notamment ceux cités)
+et, si utile, des outils d'appui comme Posit Assistant.

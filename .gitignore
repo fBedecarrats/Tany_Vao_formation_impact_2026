@@ -54,3 +54,4 @@ test*
 core
 
 .nojekyll
+**/*.quarto_ipynb

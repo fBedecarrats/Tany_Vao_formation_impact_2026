@@ -8,8 +8,102 @@
 
 [Cliquer ici pour télécharger la présentation](/slides/fr/Jour 1_Introduction_Fondamentaux.pdf)
 
+Cette introduction installe le cadre du parcours en cinq jours. Le but
+est de comprendre comment construire et discuter une comparaison causale
+crédible lorsqu'on cherche à mesurer l'effet d'une politique ou d'un
+projet.
 
-## Cadrage sur les données
+Dans le cas traité ici, la question directrice est la suivante : quel a
+été l'effet de la mise sous protection de certaines zones sur la
+déforestation observée à Madagascar ?
+
+## Pourquoi parler d'impact
+
+Mesurer un impact ne consiste pas seulement à décrire une évolution. Une
+aire protégée peut connaître une faible déforestation après sa création,
+mais cela ne suffit pas à conclure qu'elle a causé cette évolution. Il
+faut encore se demander ce qui se serait produit en l'absence de
+protection.
+
+Cette question distingue :
+
+- le suivi d'indicateurs ;
+- la description de changements observés ;
+- l'évaluation d'impact au sens causal.
+
+L'enjeu principal est donc de construire une comparaison qui aide à
+approcher ce résultat non observé.
+
+## Le contrefactuel
+
+Pour une unité traitée, on observe un résultat après intervention. En
+revanche, on n'observe jamais directement ce qu'aurait été ce résultat
+pour cette même unité si elle n'avait pas été traitée. Ce résultat non
+observé est le **contrefactuel**.
+
+Toute méthode d'évaluation d'impact cherche, explicitement ou non, à
+proposer une approximation de ce contrefactuel. Les méthodes étudiées
+dans cette formation répondent toutes à cette même question, mais avec
+des hypothèses différentes :
+
+- la randomisation comme benchmark de référence ;
+- la comparaison avant-après ;
+- l'appariement ;
+- la double différence.
+
+## Le biais de sélection
+
+La principale difficulté est que les unités traitées et non traitées ne
+sont généralement pas comparables au départ. Dans notre cas, les aires
+protégées n'ont pas été placées au hasard. Elles peuvent se distinguer
+des autres zones par :
+
+- leur altitude ;
+- leur éloignement ;
+- leur accessibilité ;
+- leur couverture forestière initiale ;
+- la pression humaine qui s'y exerce.
+
+Si ces caractéristiques influencent aussi la déforestation, alors une
+comparaison naïve entre zones protégées et non protégées risque de
+confondre effet de la protection et différences initiales. C'est ce que
+l'on désigne ici comme un **biais de sélection**.
+
+## Le cas d'étude et les données mobilisées
+
+Le fil rouge de la formation repose sur les aires protégées à Madagascar
+et sur des données de déforestation observées à partir de sources
+spatiales et satellitaires.
+
+Les objets mobilisés pendant la semaine combinent notamment :
+
+- des polygones d'aires protégées ;
+- des couches administratives ;
+- des rasters décrivant le couvert forestier ou sa perte ;
+- des indicateurs spatiaux dérivés, tels que l'altitude, la pente,
+	l'accessibilité ou certaines variables de contexte.
+
+L'intérêt pédagogique de ce cas d'étude est double :
+
+- il permet de discuter des questions causales classiques ;
+- il oblige à réfléchir à la nature spatiale des données et au choix de
+	l'unité d'analyse.
+
+## Ce que l'on va faire dans la suite
+
+La progression du format 5 jours est la suivante :
+
+1. poser la question causale et le cas d'étude ;
+2. prendre en main le minimum nécessaire dans R ;
+3. comprendre d'où viennent les variables spatiales ;
+4. examiner des stratégies de comparaison plus ou moins crédibles ;
+5. interpréter des résultats en explicitant toujours leurs hypothèses.
+
+Le chapitre suivant ne transforme pas les participants en programmeurs
+autonomes. Il fournit plutôt les repères minimaux pour lire, exécuter et
+adapter les scripts utilisés dans le reste de la formation.
+
+## Ressources complémentaires
 
 ```{=html}
 <iframe src="/slides/fr/Jour 3_Donnees.pdf" width="100%" height="400px"></iframe>
@@ -17,10 +111,12 @@
 
 [Cliquer ici pour télécharger la présentation](/slides/fr/Jour 3_Donnees.pdf)
 
-## Revue des articles
+La revue détaillée d'articles n'est pas au cœur de ce format condensé.
+En revanche, il est utile de conserver quelques références pour situer
+les applications étudiées et prolonger la réflexion après la formation :
 
-On va revoir deux articles récents qui emploient des méthodes semblables à celles que nous allons étudier pendant le cours :
+- l'article "On track to achieve no net loss of forest at Madagascar's biggest mine" de Devenish et al. [-@devenish_track_2022] ;
+- l'article "Collaborative management partnerships strongly decreased deforestation in the most at-risk protected areas in Africa since 2000" de Desbureaux et al. [-@desbureaux_collaborative_2025].
 
-- L'article "On track to achieve no net loss of forest at Madagascar's biggest mine" de Devenish et al. [-@devenish_track_2022] paru dans *Nature Sustainability*.
-- L'article "Collaborative management partnerships strongly decreased deforestation in the most at-risk protected areas in Africa since 2000", de Desbureaux et al. [-@desbureaux_collaborative_2025], paru dans *Proceedings of the National Academy of Sciences*.
-
+Ces références servent ici de prolongement, pas de séquence centrale du
+parcours.

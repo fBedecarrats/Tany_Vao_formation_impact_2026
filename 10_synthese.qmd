@@ -1,5 +1,94 @@
 # Synthèse
 
-D'autres méthodes quantitatives existent : RDD, synthetic controls.
+Le parcours de cinq jours suit une logique cumulative. Il ne s'agit pas
+de juxtaposer des techniques, mais de comprendre comment plusieurs
+méthodes répondent à une même question : comment approcher un
+contrefactuel crédible pour interpréter un résultat comme un effet ?
 
-Enjeux de croisement des méthodes.
+## Reprendre la chaîne complète
+
+La formation a progressé selon les étapes suivantes :
+
+1. poser la question causale ;
+2. comprendre les données spatiales mobilisées ;
+3. produire ou lire des indicateurs utiles ;
+4. examiner des comparaisons simples ;
+5. améliorer la comparabilité avec l'appariement ;
+6. combiner comparaison spatiale et temporelle avec la double
+	différence.
+
+L'enjeu n'est donc pas seulement de faire tourner du code. L'enjeu est
+de pouvoir relier à chaque étape :
+
+- une question ;
+- une unité d'analyse ;
+- des variables ;
+- une hypothèse de comparaison ;
+- une interprétation prudente.
+
+## Ce que chaque méthode apporte
+
+### Randomisation comme benchmark
+
+La randomisation n'était pas une stratégie crédible pour le cas étudié,
+mais elle a joué un rôle de référence. Elle aide à comprendre ce que
+voudrait dire un bon équilibre initial entre groupes.
+
+### Avant-après
+
+L'avant-après a montré l'intérêt du contrefactuel temporel, mais aussi sa
+fragilité. Une différence entre deux périodes n'est pas automatiquement
+un effet causal.
+
+### Appariement
+
+L'appariement a permis de reconstruire un groupe de comparaison plus
+proche des unités traitées, à condition de contrôler sérieusement :
+
+- les covariables retenues ;
+- le support commun ;
+- les diagnostics d'équilibre.
+
+### Double différence
+
+La double différence a permis d'ajouter la dimension temporelle à une
+comparaison traités / contrôles, en explicitant une hypothèse centrale :
+les tendances parallèles.
+
+## Trois questions à garder en tête
+
+Pour toute analyse finale, il est utile de revenir systématiquement à
+trois questions simples :
+
+1. quel est le résultat principal ?
+2. sous quelle hypothèse ce résultat peut-il être interprété ?
+3. quelle limite importante subsiste ?
+
+Cette structure est plus importante que la quantité de code produite.
+
+## Ce que la version 5 jours permet réellement
+
+Ce format donne les bases pour :
+
+- suivre une chaîne d'analyse d'impact spatialisée ;
+- lire et adapter des scripts fournis ;
+- vérifier des objets, tableaux et sorties ;
+- interpréter prudemment des résultats ;
+- poursuivre ensuite la pratique avec des ressources complémentaires.
+
+En revanche, il ne remplace pas un apprentissage approfondi de R, ni une
+formation longue à l'ensemble des méthodes d'évaluation d'impact.
+
+## Pour la suite
+
+La suite logique après cette formation est de continuer à pratiquer sur
+des objets proches de ceux utilisés ici, en gardant la même discipline :
+
+- expliciter l'unité d'analyse ;
+- justifier les covariables ;
+- tester et vérifier les scripts ;
+- distinguer clairement résultat statistique et interprétation causale.
+
+Des supports externes et des outils d'appui peuvent aider à reprendre la
+syntaxe ou à déboguer un script, mais ils ne remplacent jamais le travail
+de justification méthodologique.

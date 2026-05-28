@@ -1,0 +1,38 @@
+project:
+  type: book
+  output-dir: test_update/docs_5j
+
+book:
+  site-url: https://github.com/BETSAKA/statcap_impact_training/
+  title: "Evaluation d'impact de politiques et projets"
+  subtitle: "Version condensee en 5 jours sur les aires protegees a Madagascar"
+  author: "Florent Bedecarrats (Coord.)"
+  repo-url: https://github.com/BETSAKA/statcap_impact_training
+  cover-image: figs/IRD_010664_ORI_small_title_copyright.png
+  cover-image-alt: "Deforestation a Madagascar © IRD - Bernard Moizo"
+  date: "11/07/2025"
+  chapters:
+    - test_update/qmd_reprise_5j/index.qmd
+    - test_update/qmd_reprise_5j/00_programme_5j.qmd
+    - test_update/qmd_reprise_5j/01_introduction_5j.qmd
+    - test_update/qmd_reprise_5j/02_bases_R_5j.qmd
+    - test_update/qmd_reprise_5j/03_geodata_5j.qmd
+    - test_update/qmd_reprise_5j/04_mapme_biodiversity_5j.qmd
+    - test_update/qmd_reprise_5j/05_experimentations_aleatoires_5j.qmd
+    - test_update/qmd_reprise_5j/06_avant_apres_5j.qmd
+    - test_update/qmd_reprise_5j/07_unites_analyse_5j.qmd
+    - test_update/qmd_reprise_5j/08_appariement_5j.qmd
+    - test_update/qmd_reprise_5j/09_double_difference_5j.qmd
+    - test_update/qmd_reprise_5j/10_synthese_5j.qmd
+    - test_update/qmd_reprise_5j/11_references_5j.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    code-fold: true
+
+execute:
+  warning: false
+  error: false

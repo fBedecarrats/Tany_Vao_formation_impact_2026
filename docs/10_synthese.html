@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>10&nbsp; Synthèse – Evaluation d'impact de politiques et projets</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -38,10 +41,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2e2f7a2b0f6ea1d0af1331a7a5ecbdf9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-36ae03c18bbf95dbbed4cf3d67a5adf8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -193,8 +196,24 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#reprendre-la-chaîne-complète" id="toc-reprendre-la-chaîne-complète" class="nav-link active" data-scroll-target="#reprendre-la-chaîne-complète"><span class="header-section-number">10.1</span> Reprendre la chaîne complète</a></li>
+  <li><a href="#ce-que-chaque-méthode-apporte" id="toc-ce-que-chaque-méthode-apporte" class="nav-link" data-scroll-target="#ce-que-chaque-méthode-apporte"><span class="header-section-number">10.2</span> Ce que chaque méthode apporte</a>
+  <ul class="collapse">
+  <li><a href="#randomisation-comme-benchmark" id="toc-randomisation-comme-benchmark" class="nav-link" data-scroll-target="#randomisation-comme-benchmark"><span class="header-section-number">10.2.1</span> Randomisation comme benchmark</a></li>
+  <li><a href="#avant-après" id="toc-avant-après" class="nav-link" data-scroll-target="#avant-après"><span class="header-section-number">10.2.2</span> Avant-après</a></li>
+  <li><a href="#appariement" id="toc-appariement" class="nav-link" data-scroll-target="#appariement"><span class="header-section-number">10.2.3</span> Appariement</a></li>
+  <li><a href="#double-différence" id="toc-double-différence" class="nav-link" data-scroll-target="#double-différence"><span class="header-section-number">10.2.4</span> Double différence</a></li>
+  </ul></li>
+  <li><a href="#trois-questions-à-garder-en-tête" id="toc-trois-questions-à-garder-en-tête" class="nav-link" data-scroll-target="#trois-questions-à-garder-en-tête"><span class="header-section-number">10.3</span> Trois questions à garder en tête</a></li>
+  <li><a href="#ce-que-la-version-5-jours-permet-réellement" id="toc-ce-que-la-version-5-jours-permet-réellement" class="nav-link" data-scroll-target="#ce-que-la-version-5-jours-permet-réellement"><span class="header-section-number">10.4</span> Ce que la version 5 jours permet réellement</a></li>
+  <li><a href="#pour-la-suite" id="toc-pour-la-suite" class="nav-link" data-scroll-target="#pour-la-suite"><span class="header-section-number">10.5</span> Pour la suite</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -218,10 +237,86 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>D’autres méthodes quantitatives existent : RDD, synthetic controls.</p>
-<p>Enjeux de croisement des méthodes.</p>
+<p>Le parcours de cinq jours suit une logique cumulative. Il ne s’agit pas de juxtaposer des techniques, mais de comprendre comment plusieurs méthodes répondent à une même question : comment approcher un contrefactuel crédible pour interpréter un résultat comme un effet ?</p>
+<section id="reprendre-la-chaîne-complète" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="reprendre-la-chaîne-complète"><span class="header-section-number">10.1</span> Reprendre la chaîne complète</h2>
+<p>La formation a progressé selon les étapes suivantes :</p>
+<ol type="1">
+<li>poser la question causale ;</li>
+<li>comprendre les données spatiales mobilisées ;</li>
+<li>produire ou lire des indicateurs utiles ;</li>
+<li>examiner des comparaisons simples ;</li>
+<li>améliorer la comparabilité avec l’appariement ;</li>
+<li>combiner comparaison spatiale et temporelle avec la double différence.</li>
+</ol>
+<p>L’enjeu n’est donc pas seulement de faire tourner du code. L’enjeu est de pouvoir relier à chaque étape :</p>
+<ul>
+<li>une question ;</li>
+<li>une unité d’analyse ;</li>
+<li>des variables ;</li>
+<li>une hypothèse de comparaison ;</li>
+<li>une interprétation prudente.</li>
+</ul>
+</section>
+<section id="ce-que-chaque-méthode-apporte" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="ce-que-chaque-méthode-apporte"><span class="header-section-number">10.2</span> Ce que chaque méthode apporte</h2>
+<section id="randomisation-comme-benchmark" class="level3" data-number="10.2.1">
+<h3 data-number="10.2.1" class="anchored" data-anchor-id="randomisation-comme-benchmark"><span class="header-section-number">10.2.1</span> Randomisation comme benchmark</h3>
+<p>La randomisation n’était pas une stratégie crédible pour le cas étudié, mais elle a joué un rôle de référence. Elle aide à comprendre ce que voudrait dire un bon équilibre initial entre groupes.</p>
+</section>
+<section id="avant-après" class="level3" data-number="10.2.2">
+<h3 data-number="10.2.2" class="anchored" data-anchor-id="avant-après"><span class="header-section-number">10.2.2</span> Avant-après</h3>
+<p>L’avant-après a montré l’intérêt du contrefactuel temporel, mais aussi sa fragilité. Une différence entre deux périodes n’est pas automatiquement un effet causal.</p>
+</section>
+<section id="appariement" class="level3" data-number="10.2.3">
+<h3 data-number="10.2.3" class="anchored" data-anchor-id="appariement"><span class="header-section-number">10.2.3</span> Appariement</h3>
+<p>L’appariement a permis de reconstruire un groupe de comparaison plus proche des unités traitées, à condition de contrôler sérieusement :</p>
+<ul>
+<li>les covariables retenues ;</li>
+<li>le support commun ;</li>
+<li>les diagnostics d’équilibre.</li>
+</ul>
+</section>
+<section id="double-différence" class="level3" data-number="10.2.4">
+<h3 data-number="10.2.4" class="anchored" data-anchor-id="double-différence"><span class="header-section-number">10.2.4</span> Double différence</h3>
+<p>La double différence a permis d’ajouter la dimension temporelle à une comparaison traités / contrôles, en explicitant une hypothèse centrale : les tendances parallèles.</p>
+</section>
+</section>
+<section id="trois-questions-à-garder-en-tête" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="trois-questions-à-garder-en-tête"><span class="header-section-number">10.3</span> Trois questions à garder en tête</h2>
+<p>Pour toute analyse finale, il est utile de revenir systématiquement à trois questions simples :</p>
+<ol type="1">
+<li>quel est le résultat principal ?</li>
+<li>sous quelle hypothèse ce résultat peut-il être interprété ?</li>
+<li>quelle limite importante subsiste ?</li>
+</ol>
+<p>Cette structure est plus importante que la quantité de code produite.</p>
+</section>
+<section id="ce-que-la-version-5-jours-permet-réellement" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="ce-que-la-version-5-jours-permet-réellement"><span class="header-section-number">10.4</span> Ce que la version 5 jours permet réellement</h2>
+<p>Ce format donne les bases pour :</p>
+<ul>
+<li>suivre une chaîne d’analyse d’impact spatialisée ;</li>
+<li>lire et adapter des scripts fournis ;</li>
+<li>vérifier des objets, tableaux et sorties ;</li>
+<li>interpréter prudemment des résultats ;</li>
+<li>poursuivre ensuite la pratique avec des ressources complémentaires.</li>
+</ul>
+<p>En revanche, il ne remplace pas un apprentissage approfondi de R, ni une formation longue à l’ensemble des méthodes d’évaluation d’impact.</p>
+</section>
+<section id="pour-la-suite" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="pour-la-suite"><span class="header-section-number">10.5</span> Pour la suite</h2>
+<p>La suite logique après cette formation est de continuer à pratiquer sur des objets proches de ceux utilisés ici, en gardant la même discipline :</p>
+<ul>
+<li>expliciter l’unité d’analyse ;</li>
+<li>justifier les covariables ;</li>
+<li>tester et vérifier les scripts ;</li>
+<li>distinguer clairement résultat statistique et interprétation causale.</li>
+</ul>
+<p>Des supports externes et des outils d’appui peuvent aider à reprendre la syntaxe ou à déboguer un script, mais ils ne remplacent jamais le travail de justification méthodologique.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -275,13 +370,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

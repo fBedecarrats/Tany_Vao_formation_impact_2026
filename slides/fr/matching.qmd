@@ -12,11 +12,11 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Principe des méthodes d'appariement 
+## Problème de départ
 
 Est-ce que le statut d'Aire Protégée a un impact sur le couvert forestier ?
 
-C'est à dire :
+C'est-à-dire :
 
 $$E[CF1|AP = 1] - E[CF1|AP = 0]$$
 
@@ -24,20 +24,18 @@ avec $CF1$ le couvert forestier d'une zone si c'est une AP et $CF0$ le couvert f
 
 . . .
 
-Quel est le problème ?
+Le problème évident est qu'on n’observe jamais simultanément les deux états pour la même unité.
 
 . . .
 
-Le problème évident est qu'on n’observe pas simultanément les deux états : **quel contrefactuel ?**
+$\Rightarrow$ Quel contrefactuel utiliser ?
 
-. . .
+- Comparer des zones différentes ?
+- Risque de confusion avec des effets structurels.
 
--   Comparer des zones différentes ?
-
-## Principe des méthodes d'appariement: Illustration 
+## Illustration intuitive
 
 :::: {.columns}
-
 ::: {.column}
 
 **Comparaison naïve entre deux zones :**
@@ -59,107 +57,76 @@ $AP$ = effet de l’aire protégée
 **Différence observée :**
 
 $$
-CF_M - CF_A = (M + AP) - A 
-  = AP + (M - A)
+CF_M - CF_A = (M + AP) - A = AP + (M - A)
 $$
 
 **Problème :**  
 On voudrait isoler $AP$,  
 mais on capte aussi $(M - A)$.
 
-$\Rightarrow$ **biais de sélection** dû aux différences structurelles entre zones.
+$\Rightarrow$ **Biais de sélection** dû aux différences structurelles entre zones.
 
 $\Rightarrow$ L’appariement vise à trouver une zone non protégée où $M \approx A$.
 
 :::
+::::
 
-::::  
+## Principe du matching
 
+On cherche une zone non traitée **qui ressemble le plus possible** à la zone traitée : son "jumeau".
 
+L’idée est de comparer les résultats entre unités aux caractéristiques observables $X$ proches, en supposant que **toute la sélection dans le traitement passe par $X$**.
 
+## Hypothèses fondamentales
 
-## Principe des méthodes d'appariement {}
+- **Indépendance conditionnelle (CIA)** :  
+  $$(Y(1), Y(0)) \perp T \mid X$$
 
-Le principe de la méthode d’appariement est de minimiser la différence entre $M$ et $A$, c’est-à-dire de trouver un espace qui ressemble le plus possible à l’espace qui est protégé, son jumeau.
+  $\Rightarrow$ À caractéristiques observables identiques, l’assignation est as-if aléatoire.
 
-On va chercher le "jumeau" grâce à des caractéristiques que l’on peut mesurer, c’est-à-dire des **caractéristiques observables** $X$, et on va comparer les résultats entre ces espaces qui se ressemblent !
+- **Support commun (overlap)** :  
+  Pour chaque $X$, il existe des unités traitées et non traitées.
 
-## Hypothèses centrales 
+## Hypothèse CIA : ATT vs ATE
 
-**Hypothèses sous-jacentes :**
+- Pour identifier l’**ATT** (effet moyen sur les traités), on suppose seulement :
+  $$
+  Y(0) \perp T \mid X
+  $$
 
-- L'assignation à un programme est aléatoire lorsque les deux unités ont les mêmes caractéristiques observables  
-  $\Rightarrow$ [Indépendance conditionnelle (aux caractéristiques observables)]{style="color:red;"}
+- Pour identifier l’**ATE**, il faut que $Y(0)$ et $Y(1)$ soient indépendants de $T$ conditionnellement à $X$.
 
-$$ (Y 1 ,Y 0 ) ⊥ T|X $$
+$\Rightarrow$ Hypothèse plus forte.
 
-- Il doit y avoir suffisamment d'unités traitées qui ressemblent à des unités contrôles  
-  $\Rightarrow$ [Support commun]{style="color:red;"}
+## Risques liés à la CIA
 
-## Hypothèse d'indépendance conditionnelle 
+- La CIA suppose qu’aucune variable inobservée ne détermine à la fois $T$ et $Y$.
+- Il faut aussi qu’une unité non traitée comparable existe réellement pour chaque profil pertinent de $X$.
+- Si certaines valeurs de $X$ déterminent avec certitude le traitement, pas d'unité comparable.
 
-**L’hypothèse d’indépendance conditionnelle :**
+$\Rightarrow$ Il faut des jumeaux **observables** et **non systématiquement traités**.
 
-- L'assignation dans un programme de conservation d’un espace ayant les mêmes caractéristiques $X$ est indépendante des résultats potentiels avec et sans le traitement.
+## Hypothèse de support commun
 
-$\Rightarrow$ Conditionnellement aux caractéristiques observables $X$, les résultats moyens des unités qui ne bénéficient pas du programme peuvent servir de [contrefactuel]{style="color:red;"} des résultats moyens des unités qui bénéficient du programme en l’absence de ce dernier.
+On suppose qu’il existe, pour chaque valeur de $X$, des unités traitées et non traitées.
 
-$\Rightarrow$ L'indépendance conditionnelle permet de ne plus avoir de [problème de sélection]{style="color:red;"} i.e d'obtenir des [estimateurs sans biais]{style="color:red;"} de l'effet du traitement (conditionnel aux observables).
+Sinon, impossible de construire un groupe de comparaison.
 
-## Hypothèse d'indépendance conditionnelle 
+$\Rightarrow$ Vérification graphique et exclusion des zones hors support.
 
-Assouplissement de l'hypothèse d'indépendance conditionnelle lorsque l'on s'intéresse à l'effet du traitement sur les unités traitées (ATT) :
+## Objectif du matching
 
-- **Hypothèse d'indépendance conditionnelle** est moins forte, i.e.
+Comparer $Y(1)$ d’une unité traitée avec $Y(0)$ d’une unité non traitée **ayant les mêmes $X$**.
 
 $$
-Y(0) \perp T \mid X
+ATT = E[Y(1) - Y(0) \mid T=1]
 $$
 
-$\Rightarrow$ Conditionnellement aux caractéristiques observables $X$, le résultat des unités non-traitées ($T = 0$) représente un [contrefactuel non biaisé]{style="color:red;"} du résultat potentiel moyen des unités pour lesquelles $T = 1$ en l’absence de traitement $T$.
+$$
+\approx \frac{1}{N_1} \sum_{i \in T=1} \left( Y_i - Y_{j(i)} \right)
+$$
 
-## Hypothèse d'indépendance conditionnelle 
-
-Implication de l’hypothèse d’indépendance conditionnelle (CIA)
-
-$\Rightarrow$ En dehors des observables ($X$), il n'existe pas d'autres caractéristiques qui influencent à la fois les résultats potentiels ($Y$) et l’adoption du programme ($T$).
-
-Risque important que l’hypothèse ne soit pas respectée.
-
-. . . 
-
-$\Rightarrow$ Pour pouvoir comparer une unité traitée avec une unité non traitée identique, il faut qu'une [unité non traitée identique existe]{style="color:blue;"} !
-
-. . . 
-
-
-
-$\Rightarrow$ Si, pour certaines caractéristiques $X$, les unités sont assurées d’être traitées alors il ne sera [pas possible]{style="color:red;"} de trouver des unités non traitées comparables !
-
-## Hypothèse d'existence d'un support commun 
-
-**L’hypothèse d’existence d’un support commun ("overlap")**
-
-- Avoir des unités traitées et non traitées [qui se ressemblent]{style="color:blue;"} donc avoir un [chevauchement suffisant]{style="color:red;"} entre les unités traitées et les unités non traitées pour trouver des appariements.
-
-$\Rightarrow$ Pour chaque valeur de $X$, on suppose qu’il existe des unités qui ont le traitement et d’autres qui n’y ne l'ont pas.
-
-## Le principe
-
-**Méthodes d’appariement**
-
-Pour évaluer l’effet moyen sur les traités (ATT), cela revient à [comparer]{style="color:blue;"} le résultat $Y1$ de chaque unité traitée avec le résultat $Y0$ de l’unité non traitée ayant exactement les mêmes caractéristiques observables.
-
-Cela revient en symétrie à exclure de l'analyse les unités qui ne sont pas comparables.
-
-## Le principe 
-
-**Méthodes d’appariement**
-
-- L'idée est de comparer les résultats ($Y1$) de chaque unité avec les résultats ($Y0$) de son "jumeau".
-
-$\Rightarrow$ Pour évaluer l’effet moyen sur les traités (ATT), cela revient à [comparer]{style="color:blue;"} le résultat $Y1$ de chaque unité traitée avec le résultat $Y0$ de l’unité non traitée ayant exactement les mêmes caractéristiques observables.
-
+où $j(i)$ est le "jumeau" de l’unité $i$.
 
 ## Méthodes d’appariement
 
@@ -167,74 +134,50 @@ Plusieurs façons de définir les paires (ou groupes) appariés :
 
 - `"exact"` : appariement exact sur les covariables
 - `"coarsened-exact"` : appariement exact après discrétisation
-- `"nearest-neighbor"` : voisin le plus proche
+- `"nearest-neighbor"` : plus proche voisin
 - `"optimal"` : minimise la distance totale globale
 - `"full"` : chaque unité est utilisée, poids variables
 
+## Mesures de distance
 
-## Voisin le plus proche 
+Pour définir "le plus proche", il faut expliciter une métrique de distance.
 
-**Voisin le plus proche**
+- **Distance euclidienne** : simple somme des différences
+- **Distance de Mahalanobis** : tient compte de la variance et des corrélations entre covariables
+- **Score de propension** : probabilité d’être traité conditionnellement à $X$
 
-- La méthode la plus simple est de comparer chaque unité avec son "jumeau", i.e. des unités qui ont les [caractéristiques observables $X$]{style="color:red;"} les plus proches.
+## Voisin le plus proche
 
-. . .
+- Méthode intuitive : on apparie chaque unité traitée avec sa plus proche unité contrôle.
+- On peut apparier avec un seul jumeau ou avec $m$ plus proches voisins.
+- On peut aussi exclure les paires trop éloignées en fixant un seuil de distance (*caliper*).
 
-- Il est rare de trouver des unités non traitées avec des caractéristiques identiques à celles des unités traitées.  
-  $\Rightarrow$ On choisit donc son [plus proche voisin]{style="color:red;"}
+$\Rightarrow$ La méthode est simple, mais la qualité de l’appariement dépend directement de la façon de mesurer la proximité.
 
-. . .
+## Appariement avec ou sans remise
 
-- Cette notion demande de définir une [métrique de la distance]{style="color:red;"} ou de la [ressemblance entre les unités]{style="color:blue;"}
+- **Sans remise** : chaque unité non traitée est utilisée une seule fois.
+- **Avec remise** : on peut utiliser la même unité plusieurs fois.
 
-## Les métriques 
+Avantage du *avec remise* : plus de flexibilité, meilleure qualité des appariements dans petits échantillons.
 
-Il y a plusieurs manières de calculer la distance entre deux unités :
+Inconvénients du *sans remise* :
 
-- **[Distance euclidienne]{style="color:blue;"}** : la distance entre deux unités est la somme des distances de toutes les covariables i.e les caractéristiques observables $X$.
+- nécessite un large échantillon de contrôle ;
+- peut rendre l’estimation sensible à l’ordre d’appariement.
 
-. . .
+## Limites du plus proche voisin
 
-- **[Distance de Mahalanobis]{style="color:blue;"}** : accorde un poids différent aux caractéristiques observables $X$.
+L’appariement est assez simple à mettre en œuvre, son principe est intuitif et ne demande pas de choix de paramètres très lourds.
 
-- **[Score de propension]{style="color:blue;"}** : une seule mesure de proabilité de traitement (expliqué plus loin)
+Toutefois :
 
-## Variantes du plus proche voisin 
+- unité la plus proche $\neq$ unité vraiment proche ;
+- certains plus proches voisins peuvent rester assez éloignés ;
+- la méthode traite de la même manière des couples très proches et moins proches ;
+- apparier avec un seul contrôle prive de l’information apportée par les autres unités comparables.
 
-**Les plus proches voisins**
-
-- **[Plus proches voisins]{style="color:blue;"}** :
-  - On apparie avec un nombre fixe $m$ de plus proches voisins et le résultat potentiel contrefactuel est donc la moyenne des résultats de ces $m$ voisins.
-  - On exclut les couples trop éloignés i.e. on n’utilise pas les unités traitées pour lesquels on ne peut pas trouver un (ou $m$) jumeau.x à moins d’une certaine distance $d$ à fixer.
-
-## Mécanique de l'appariement 
-
-L’appariement peut être fait :
-
-- **[Sans remise]{style="color:blue;"}** : une unité du groupe de contrôle ne peut être appariée qu’une fois avec une unité du groupe de traitement.
-
-- **[Avec remise]{style="color:blue;"}** : on utilise l’ensemble de l’échantillon à chaque fois ce qui autorise des appariements avec la même unité.
-
-. . . 
-
-**Inconvénients du matching sans remise ?**
-
-. . . 
-
-- Nécessite un large échantillon de contrôle
-- L’estimation pourra être sensible à l’ordre dans lequel l’appariement est effectué
-
-## Limites du plus proche voisin 
-
-L’appariement est assez simple à mettre en œuvre, son principe est intuitif et ne demande pas de choix de paramètres.
-
-Toutefois, on ne contrôle pas la [qualité]{style="color:red;"} de l’appariement, la notion du plus proche voisin est par nature relative.
-
-- Certains plus proches voisins pourront être en fait éloignés. Or la méthode du plus proche voisin traite de la même manière des couples proches et moins proches.
-
-Apparier avec un seul individu prive de l’information apportée par tous les autres ce qui [réduit a priori]{style="color:red;"} la précision de l’estimation.
-
-- Certains bénéficiaires peuvent avoir plusieurs jumeaux proches : on peut considérer qu’il est dommage de n’en choisir qu'un.
+$\Rightarrow$ Biais possible et perte de précision.
 
 ## Choix de la taille de la fenêtre 
 
@@ -246,7 +189,7 @@ Il n’existe pas vraiment de règle établie pour le choix de cette fenêtre.
 
 En pratique, le choix de la fenêtre est fait de manière _ad-hoc_.
 
-## Précision vs biais 
+## Biais vs variance
 
 Chaque méthode a des avantages et des inconvénients.
 
@@ -257,7 +200,7 @@ L’opposition entre la plus simple (voisin le plus proche) et la plus élaboré
 
 En pratique, on recommande de tester la sensibilité des résultats à la méthode utilisée.
 
-## Combien de variables de contrôle ? 
+## Curse of dimensionality
 
 Le matching exact est souvent compliqué à mettre en œuvre.
 
@@ -283,9 +226,13 @@ Cette propriété diminue le nombre de dimensions des comparaisons, puisque l’
 
 Pour tenir compte de la nature bornée du PSM, il est d’usage de le modéliser par une forme logistique (ou un probit) :
 
+$$
+\pi(X_i) = P(T_i = 1 \mid X_i)
+$$
+
 Même s’il est coutume d’estimer le PSM par un modèle logit ou probit, il convient de se rappeler que la forme fonctionnelle du PSM est souvent inconnue.
 
-## Restriction au support commun 
+## Vérification du support commun
 
 Les méthodes présentées sous l’hypothèse d’indépendance conditionnelle reposent sur l’hypothèse d’un support commun.
 
@@ -293,7 +240,7 @@ Celle-ci signifie qu’il existe à la fois des unités traitées et des non tra
 
 Si ce n’est pas le cas, il sera impossible de trouver pour chaque unité traitée des non traitées comparables.
 
-$\Rightarrow$ Il est important de vérifier que le [support commun]{style="color:blue;"} i.e. la zone sur laquelle il existe des unités traitées et non traitées qui partagent le même score de propension, est suffisamment large.
+$\Rightarrow$ Il est important de vérifier que le support commun est suffisamment large.
 
 ## Test visuel du support commun 
 

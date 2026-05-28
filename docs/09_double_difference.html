@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>9&nbsp; Double différence – Evaluation d'impact de politiques et projets</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -55,27 +58,7 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -93,10 +76,10 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2e2f7a2b0f6ea1d0af1331a7a5ecbdf9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-36ae03c18bbf95dbbed4cf3d67a5adf8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -254,10 +237,13 @@ div.csl-indent {
    
   <ul>
   <li><a href="#méthode-des-doubles-différences" id="toc-méthode-des-doubles-différences" class="nav-link active" data-scroll-target="#méthode-des-doubles-différences"><span class="header-section-number">9.1</span> Méthode des doubles différences</a></li>
-  <li><a href="#application-aux-mailles-de-territoire" id="toc-application-aux-mailles-de-territoire" class="nav-link" data-scroll-target="#application-aux-mailles-de-territoire"><span class="header-section-number">9.2</span> Application aux mailles de territoire</a>
-  <ul class="collapse">
-  <li><a href="#estimation-des-effets-moyens-du-traitement" id="toc-estimation-des-effets-moyens-du-traitement" class="nav-link" data-scroll-target="#estimation-des-effets-moyens-du-traitement"><span class="header-section-number">9.2.1</span> Estimation des effets moyens du traitement</a></li>
-  </ul></li>
+  <li><a href="#pourquoi-cette-étape-compte" id="toc-pourquoi-cette-étape-compte" class="nav-link" data-scroll-target="#pourquoi-cette-étape-compte"><span class="header-section-number">9.2</span> Pourquoi cette étape compte</a></li>
+  <li><a href="#préparer-le-panel-à-partir-des-mailles-appariées" id="toc-préparer-le-panel-à-partir-des-mailles-appariées" class="nav-link" data-scroll-target="#préparer-le-panel-à-partir-des-mailles-appariées"><span class="header-section-number">9.3</span> Préparer le panel à partir des mailles appariées</a></li>
+  <li><a href="#passer-en-format-long" id="toc-passer-en-format-long" class="nav-link" data-scroll-target="#passer-en-format-long"><span class="header-section-number">9.4</span> Passer en format long</a></li>
+  <li><a href="#lire-la-structure-du-panel" id="toc-lire-la-structure-du-panel" class="nav-link" data-scroll-target="#lire-la-structure-du-panel"><span class="header-section-number">9.5</span> Lire la structure du panel</a></li>
+  <li><a href="#estimer-leffet-moyen-du-traitement" id="toc-estimer-leffet-moyen-du-traitement" class="nav-link" data-scroll-target="#estimer-leffet-moyen-du-traitement"><span class="header-section-number">9.6</span> Estimer l’effet moyen du traitement</a></li>
+  <li><a href="#lecture-graphique" id="toc-lecture-graphique" class="nav-link" data-scroll-target="#lecture-graphique"><span class="header-section-number">9.7</span> Lecture graphique</a></li>
+  <li><a href="#ce-quil-faut-retenir" id="toc-ce-quil-faut-retenir" class="nav-link" data-scroll-target="#ce-quil-faut-retenir"><span class="header-section-number">9.8</span> Ce qu’il faut retenir</a></li>
   </ul>
 </nav>
     </div>
@@ -285,88 +271,107 @@ div.csl-indent {
 
 <section id="méthode-des-doubles-différences" class="level2" data-number="9.1">
 <h2 data-number="9.1" class="anchored" data-anchor-id="méthode-des-doubles-différences"><span class="header-section-number">9.1</span> Méthode des doubles différences</h2>
-<iframe src="slides/fr/TVM_Double_difference.pdf" width="100%" height="400px"></iframe>
-<p><a href="slides/fr/TVM_Double_difference.pdf">Cliquer ici pour télécharger la présentation</a>.</p>
-<p>Pour cette analyse, nous allons appliquer la méthode des doubles différences pour estimer l’impact des aires protégéesa déforestation à Madagascar entre 2000 et 2023. Cette méthode est particulièrement utile lorsque l’intervention (la création des aires protégées) a lieu à des dates différentes pour chaque unité d’observation, ce que l’on appelle doubles différences avec traitement échelonné dans le temps (staggered diff-in-diff). La méthode proposée par Callaway et Sant’Anna <span class="citation" data-cites="callaway2021">(<a href="11_references.html#ref-callaway2021" role="doc-biblioref">2021b</a>)</span> permet de gérer cette situation en utilisant une approche qui tient compte de ces dates de mise en œuvre différentes. Le package {did} <span class="citation" data-cites="did">(<a href="11_references.html#ref-did" role="doc-biblioref">Callaway and Sant’Anna 2021a</a>)</span> en R permet d’appliquer cette méthode facilement.</p>
+<iframe src="./slides/fr/TVM_Double_difference.pdf" width="100%" height="400px"></iframe>
+<p><a href="./slides/fr/TVM_Double_difference.pdf">Cliquer ici pour télécharger la présentation</a></p>
+<p>La double différence constitue le second centre de gravité du format 5 jours. Elle combine deux idées déjà rencontrées séparément :</p>
+<ul>
+<li>comparer des unités traitées et non traitées ;</li>
+<li>comparer des périodes avant et après traitement.</li>
+</ul>
+<p>Dans ce chapitre, on applique cette logique à des mailles spatiales dont la date de traitement varie dans le temps.</p>
 </section>
-<section id="application-aux-mailles-de-territoire" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="application-aux-mailles-de-territoire"><span class="header-section-number">9.2</span> Application aux mailles de territoire</h2>
-<p>Dans cette section, nous appliquons la méthode des doubles différences aux mailles de territoire pour évaluer l’effet des aires protégées sur la réduction de la déforestation. Nous allons d’abord préparer les données afin de les rendre conformes aux exigences de la fonction <code>att_gt()</code> du package {did}.</p>
-<p>Nous travaillons avec un jeu de données spatial qui représente des mailles de 5 km² chacune, et nous avons des informations sur la couverture forestière pour chaque année. Le traitement consiste à identifier les mailles qui sont “intérieures” aux aires protégées (traitées) par rapport aux autres (non traitées).</p>
+<section id="pourquoi-cette-étape-compte" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="pourquoi-cette-étape-compte"><span class="header-section-number">9.2</span> Pourquoi cette étape compte</h2>
+<p>La méthode permet d’aller plus loin que les comparaisons simples, mais au prix d’une hypothèse centrale : les <strong>tendances parallèles</strong>. Autrement dit, en l’absence de traitement, les groupes comparés auraient dû suivre des trajectoires comparables.</p>
+</section>
+<section id="préparer-le-panel-à-partir-des-mailles-appariées" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="préparer-le-panel-à-partir-des-mailles-appariées"><span class="header-section-number">9.3</span> Préparer le panel à partir des mailles appariées</h2>
+<p>On repart de l’objet de mailles appariées et on lui rattache la série de couvert forestier détaillée, issue de l’objet <code>mapme</code> correspondant.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(did) <span class="co"># Pour des doubles-différences échelonnées</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Pur faciliter la manipulation de données</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate) <span class="co"># Pour modifier les dates</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt) <span class="co"># Pour de jolis tableaux</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapme.biodiversity) <span class="co"># Pour réutiliser des fonctions portfolio_long</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf) <span class="co"># Pour des opérations spatiales sur vecteurs</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># On charge les données par mailles créées précédemment</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>grille_matched <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/grille_matched.rds"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Dans la version ci-dessus, on n'a gardé que les données de déforestation</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># par année. On va récupérer dans la version précédente, le calcul qu'on avait pour toutes les années</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>grille_mada_mapme <span class="ot">&lt;-</span> <span class="fu">read_rds</span>(<span class="st">"data/grille_mada_mapme.rds"</span>)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># On isole l'identifiant de la cellule et les indicateurs de perte de couvert forestier</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>treecover_data <span class="ot">&lt;-</span> grille_mada_mapme <span class="sc">%&gt;%</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(assetid, treecover_area)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># On incorpore les données détaillées de couvert forestier dans les données matchées</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>grille_matched <span class="ot">&lt;-</span> grille_matched <span class="sc">%&gt;%</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(treecover_data, <span class="at">by =</span> <span class="st">"assetid"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapme.biodiversity)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(did)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>grille_matched <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/grille_matched.rds"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>grille_mada_mapme <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/grille_mada_mapme.rds"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>treecover_data <span class="ot">&lt;-</span> grille_mada_mapme <span class="sc">%&gt;%</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(assetid, treecover_area)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>grille_matched <span class="ot">&lt;-</span> grille_matched <span class="sc">%&gt;%</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(treecover_data, <span class="at">by =</span> <span class="st">"assetid"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<p>Ici, nous avons associé les données sur la perte de couverture forestière à chaque maille correspondant aux aires protégées et aux zones non protégées.</p>
-<p>Ensuite, nous transformons les données en format long pour pouvoir suivre l’évolution de la couverture forestière au fil du temps. Cela permet de calculer le taux de déforestation annuel comme un pourcentage du couvert forestier initial pour chaque maille.</p>
+</section>
+<section id="passer-en-format-long" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="passer-en-format-long"><span class="header-section-number">9.4</span> Passer en format long</h2>
+<p>Comme dans les chapitres précédents, le passage en format long est une étape clé. Il permet ici de suivre, pour chaque maille, l’évolution de la variable d’intérêt dans le temps.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># On va utiliser matchit pour "déplier" en mode long l'évolution du couvert forestier</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># On indique qu'il s'agit d'un objet de type mapme.biodiversity pour pouvoir </span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># utiliser la fonction portfolio_long</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(grille_matched) <span class="ot">&lt;-</span> <span class="fu">class</span>(grille_mada_mapme) </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># On passe maintenant en format long</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>grille_matched <span class="ot">&lt;-</span> grille_matched <span class="sc">%&gt;%</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">portfolio_long</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">treecover =</span> value) <span class="sc">%&gt;%</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">years =</span> <span class="fu">year</span>(datetime)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(assetid, years) <span class="sc">%&gt;%</span> <span class="co"># On remet bien dans l'ordre pour que les années se suivent</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># On calcule le taux de déforestation en %</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tx_defor =</span> <span class="fu">ifelse</span>(assetid<span class="sc">!=</span> <span class="fu">lag</span>(assetid), <span class="cn">NA</span>, </span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                           <span class="sc">-</span>((treecover <span class="sc">-</span> <span class="fu">lag</span>(treecover)) <span class="sc">/</span> </span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                               <span class="fu">lag</span>(treecover))<span class="sc">*</span><span class="dv">100</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(grille_matched) <span class="ot">&lt;-</span> <span class="fu">class</span>(grille_mada_mapme)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>grille_matched_long <span class="ot">&lt;-</span> grille_matched <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">portfolio_long</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">treecover =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">years =</span> <span class="fu">year</span>(datetime)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(assetid, years) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">tx_defor =</span> <span class="fu">ifelse</span>(assetid <span class="sc">!=</span> <span class="fu">lag</span>(assetid), <span class="cn">NA</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                                            <span class="sc">-</span>((treecover <span class="sc">-</span> <span class="fu">lag</span>(treecover)) <span class="sc">/</span> <span class="fu">lag</span>(treecover)) <span class="sc">*</span> <span class="dv">100</span>),</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">time_treated =</span> <span class="fu">ifelse</span>(position_ap <span class="sc">==</span> <span class="st">"Intérieur"</span>, an_creation, <span class="dv">0</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<blockquote class="blockquote">
-<p><strong>Exercice</strong> :<br>
-- pour explorer le jeu de données grilles_matched, groupez les données par statut de traitement <code>traitement</code> et année de création <code>an_creation</code>. Que remarquez-vous ?</p>
-</blockquote>
-<section id="estimation-des-effets-moyens-du-traitement" class="level3" data-number="9.2.1">
-<h3 data-number="9.2.1" class="anchored" data-anchor-id="estimation-des-effets-moyens-du-traitement"><span class="header-section-number">9.2.1</span> Estimation des effets moyens du traitement</h3>
-<p>Nous utilisons la fonction att_gt() pour estimer l’effet moyen du traitement (ATT) sur le taux de déforestation au fil du temps. Les poids provenant du processus de matching sont utilisés pour ajuster les estimations.</p>
-<p>La fonction <code>ggdid()</code> permet de visualiser les résultats obtenus. Les graphiques suivants montrent l’évolution de l’ATM au fil du temps, ce qui nous permet d’observer l’impact des aires protégées sur la déforestation. <strong>Attention</strong> : il s’agit ici d’une première estimation à des fins didactiques, sans variables de contrôle.</p>
+</section>
+<section id="lire-la-structure-du-panel" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="lire-la-structure-du-panel"><span class="header-section-number">9.5</span> Lire la structure du panel</h2>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Les mailles en dehors des aires protégées sont considérées comme jamais traitées</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>grille_matched <span class="ot">&lt;-</span> grille_matched <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time_treated =</span> <span class="fu">ifelse</span>(position_ap <span class="sc">==</span> <span class="st">"Intérieur"</span>, an_creation, <span class="dv">0</span>))</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculer le DID en utilisant la fonction `att_gt`</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>did_result <span class="ot">&lt;-</span> <span class="fu">att_gt</span>(<span class="at">yname =</span> <span class="st">"tx_defor"</span>, <span class="co"># variable de résultat</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">tname =</span> <span class="st">"years"</span>, <span class="co"># Variable de temps</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">idname =</span> <span class="st">"assetid"</span>, <span class="co"># ID des unités</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">gname =</span> <span class="st">"time_treated"</span>, <span class="co"># Temps de traitement </span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">weightsname =</span> <span class="st">"weights"</span>, <span class="co"># Poids issus du matching</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> grille_matched,</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">panel =</span> <span class="cn">TRUE</span>) <span class="co"># panel veut dire qu'on suit les mêmes unités</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Aggregate the ATT results</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>agg_att_mailles <span class="ot">&lt;-</span> <span class="fu">aggte</span>(did_result, <span class="at">type =</span> <span class="st">"dynamic"</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the aggregated results</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(agg_att_mailles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>grille_matched_long <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_drop_geometry</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(position_ap, years) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">head</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  position_ap years     n
+  &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;
+1 Extérieur    2000  4325
+2 Extérieur    2001  4325
+3 Extérieur    2002  4325
+4 Extérieur    2003  4325
+5 Extérieur    2004  4325
+6 Extérieur    2005  4325</code></pre>
+</div>
+</div>
+<p>Cette étape permet de vérifier que l’on suit bien des unités dans le temps et que la variable de traitement est définie de manière cohérente.</p>
+</section>
+<section id="estimer-leffet-moyen-du-traitement" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="estimer-leffet-moyen-du-traitement"><span class="header-section-number">9.6</span> Estimer l’effet moyen du traitement</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>did_result <span class="ot">&lt;-</span> <span class="fu">att_gt</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">yname =</span> <span class="st">"tx_defor"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">tname =</span> <span class="st">"years"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">idname =</span> <span class="st">"assetid"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">gname =</span> <span class="st">"time_treated"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">weightsname =</span> <span class="st">"weights"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> grille_matched_long,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>agg_att_mailles <span class="ot">&lt;-</span> <span class="fu">aggte</span>(did_result, <span class="at">type =</span> <span class="st">"dynamic"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(agg_att_mailles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -378,84 +383,90 @@ Reference: Callaway, Brantly and Pedro H.C. Sant'Anna.  "Difference-in-Differenc
 
 Overall summary of ATT's based on event-study/dynamic aggregation:  
      ATT    Std. Error     [ 95%  Conf. Int.]  
- -0.6038        0.1244    -0.8476     -0.3599 *
+ -0.6038        0.1271    -0.8529     -0.3547 *
 
 
 Dynamic Effects:
  Event time Estimate Std. Error [95% Simult.  Conf. Band]  
-        -13   0.1535     0.0364        0.0411      0.2658 *
-        -12   0.0921     0.0463       -0.0507      0.2349  
-        -11  -0.1521     0.0404       -0.2768     -0.0275 *
-        -10   0.1907     0.0383        0.0725      0.3089 *
-         -9   0.3622     0.0475        0.2157      0.5086 *
-         -8  -0.2713     0.0736       -0.4982     -0.0445 *
-         -7   0.0891     0.0793       -0.1554      0.3336  
-         -6   0.0248     0.0852       -0.2380      0.2876  
-         -5  -0.1555     0.0788       -0.3987      0.0876  
-         -4  -0.3934     0.0775       -0.6326     -0.1543 *
-         -3   0.0927     0.0771       -0.1449      0.3303  
-         -2  -0.2609     0.0649       -0.4611     -0.0608 *
-         -1  -0.1315     0.0732       -0.3571      0.0941  
-          0   0.0233     0.0770       -0.2142      0.2608  
-          1  -0.4453     0.0805       -0.6936     -0.1970 *
-          2  -0.3679     0.1203       -0.7389      0.0031  
-          3   0.3815     0.1434       -0.0609      0.8238  
-          4   0.0381     0.1074       -0.2933      0.3694  
-          5  -0.3516     0.1009       -0.6629     -0.0404 *
-          6  -0.5031     0.1038       -0.8233     -0.1828 *
-          7  -0.6586     0.1064       -0.9868     -0.3304 *
-          8  -0.7840     0.1381       -1.2098     -0.3581 *
-          9  -1.2830     0.0635       -1.4789     -1.0870 *
-         10  -1.5345     0.0756       -1.7677     -1.3014 *
-         11  -2.0019     0.1131       -2.3506     -1.6532 *
-         12  -2.2578     0.1731       -2.7916     -1.7240 *
-         13  -2.0607     0.1549       -2.5383     -1.5831 *
-         14   1.4668     0.5784       -0.3169      3.2505  
-         15  -1.5404     0.3336       -2.5691     -0.5118 *
-         16  -1.5246     0.3133       -2.4906     -0.5586 *
-         17  -2.1570     0.2112       -2.8082     -1.5058 *
-         18  -0.9486     0.3983       -2.1769      0.2797  
-         19   0.6915     0.6227       -1.2287      2.6116  
-         20   1.4917     0.5862       -0.3161      3.2995  
-         21   1.0431     0.7148       -1.1611      3.2473  
+        -13   0.1535     0.0374        0.0395      0.2675 *
+        -12   0.0921     0.0433       -0.0399      0.2241  
+        -11  -0.1521     0.0418       -0.2795     -0.0247 *
+        -10   0.1907     0.0394        0.0704      0.3110 *
+         -9   0.3622     0.0514        0.2053      0.5190 *
+         -8  -0.2713     0.0757       -0.5024     -0.0403 *
+         -7   0.0891     0.0741       -0.1370      0.3152  
+         -6   0.0248     0.0806       -0.2211      0.2707  
+         -5  -0.1555     0.0812       -0.4031      0.0921  
+         -4  -0.3934     0.0809       -0.6401     -0.1467 *
+         -3   0.0927     0.0782       -0.1458      0.3312  
+         -2  -0.2609     0.0612       -0.4476     -0.0742 *
+         -1  -0.1315     0.0753       -0.3611      0.0981  
+          0   0.0233     0.0707       -0.1925      0.2391  
+          1  -0.4453     0.0844       -0.7028     -0.1879 *
+          2  -0.3679     0.1146       -0.7176     -0.0182 *
+          3   0.3815     0.1463       -0.0647      0.8277  
+          4   0.0381     0.1173       -0.3197      0.3958  
+          5  -0.3516     0.1034       -0.6670     -0.0363 *
+          6  -0.5031     0.1099       -0.8385     -0.1677 *
+          7  -0.6586     0.1169       -1.0153     -0.3019 *
+          8  -0.7840     0.1355       -1.1972     -0.3707 *
+          9  -1.2830     0.0747       -1.5109     -1.0550 *
+         10  -1.5345     0.0841       -1.7912     -1.2779 *
+         11  -2.0019     0.1097       -2.3367     -1.6671 *
+         12  -2.2578     0.1775       -2.7994     -1.7162 *
+         13  -2.0607     0.1538       -2.5299     -1.5915 *
+         14   1.4668     0.5805       -0.3042      3.2378  
+         15  -1.5404     0.3215       -2.5214     -0.5595 *
+         16  -1.5246     0.3072       -2.4618     -0.5874 *
+         17  -2.1570     0.2083       -2.7923     -1.5216 *
+         18  -0.9486     0.4176       -2.2227      0.3255  
+         19   0.6915     0.5881       -1.1026      2.4855  
+         20   1.4917     0.5686       -0.2431      3.2265  
+         21   1.0431     0.7304       -1.1852      3.2714  
 ---
 Signif. codes: `*' confidence band does not cover 0
 
 Control Group:  Never Treated,  Anticipation Periods:  0
 Estimation Method:  Doubly Robust</code></pre>
 </div>
+</div>
+<p>Cette sortie est déjà très informative. Elle signale aussi qu’une partie des lignes ou des unités peut être écartée pour rendre le panel conforme aux exigences de la méthode. Cela ne doit pas être ignoré dans l’interprétation.</p>
+</section>
+<section id="lecture-graphique" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="lecture-graphique"><span class="header-section-number">9.7</span> Lecture graphique</h2>
+<div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisation du résultat</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdid</span>(agg_att_mailles) <span class="sc">+</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">13</span>, <span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdid</span>(agg_att_mailles)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="09_double_difference_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="09_double_difference_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<blockquote class="blockquote">
-<p><strong>Exercice</strong> : Analysez et commentez ce résultat.</p>
-</blockquote>
-<p>L’analyse précédente ne tient pas compte de certains facteurs dont on a vu qu’ils pouvaient influencer à la fois la sélection, mais aussi la déforestation, en particulier l’altitude, la pente, le temps de parcours à la ville la plus proche, ou encore la densité de population.</p>
-<blockquote class="blockquote">
-<p><strong>Exercice</strong> reprenez la fonction att_gt() ci-dessus et consultez la documentation pour voir comment ajouter des covariables. Ajoutez les covariables qui vous semblent pertinente et calculez puis interprétez les résultats.</p>
-</blockquote>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
-<div id="ref-did" class="csl-entry" role="listitem">
-Callaway, Brantly, and Pedro H. C. Sant’Anna. 2021a. <span>“Difference-in-Differences with Multiple Time Periods.”</span> <a href="https://doi.org/10.1016/j.jeconom.2020.12.001">https://doi.org/10.1016/j.jeconom.2020.12.001</a>.
-</div>
-<div id="ref-callaway2021" class="csl-entry" role="listitem">
-———. 2021b. <span>“Difference-in-Differences with Multiple Time Periods.”</span> <em>Journal of Econometrics</em>, Themed Issue: Treatment Effect 1, 225 (2): 200–230. <a href="https://doi.org/10.1016/j.jeconom.2020.12.001">https://doi.org/10.1016/j.jeconom.2020.12.001</a>.
-</div>
-</div>
+<p>Le graphique dynamique aide à distinguer :</p>
+<ul>
+<li>les périodes avant traitement ;</li>
+<li>l’année de traitement ;</li>
+<li>les effets après traitement.</li>
+</ul>
+<p>Dans ce format condensé, l’objectif principal n’est pas d’entrer dans tous les détails du package <code>did</code>, mais d’apprendre à lire cette sortie et à la relier à l’hypothèse de tendances parallèles.</p>
 </section>
+<section id="ce-quil-faut-retenir" class="level2" data-number="9.8">
+<h2 data-number="9.8" class="anchored" data-anchor-id="ce-quil-faut-retenir"><span class="header-section-number">9.8</span> Ce qu’il faut retenir</h2>
+<p>La double différence ne remplace pas le travail méthodologique mené en amont. Elle s’appuie au contraire sur tout ce qui précède :</p>
+<ul>
+<li>le choix de l’unité d’analyse ;</li>
+<li>la définition du traitement ;</li>
+<li>la construction d’un échantillon plus comparable ;</li>
+<li>la vérification de la structure temporelle.</li>
+</ul>
+<p>Autrement dit, l’estimation finale n’a de sens que si la chaîne complète reste cohérente.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -510,13 +521,14 @@ Callaway, Brantly, and Pedro H. C. Sant’Anna. 2021a. <span>“Difference-in-Di
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
